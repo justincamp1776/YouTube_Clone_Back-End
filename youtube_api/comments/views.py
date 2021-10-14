@@ -36,9 +36,14 @@ class CommentDetail(APIView):
         except Comment.DoesNotExist:
             raise Http404    
         
+    def get(self, request, pk):
+        comment = self.get_object(pk)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
+
 class ReplyDetail(APIView):
 
-    def post(self,request):
+    def post(self, request, fk):
         serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
