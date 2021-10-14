@@ -42,7 +42,6 @@ class CommentDetail(APIView):
 
     def patch(self, request, pk):
         comment = self.get_object(pk)
-        comment.likes += 1
         serializer = CommentSerializer(comment, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -56,7 +55,7 @@ class CommentDetail(APIView):
 
 class ReplyDetail(APIView):
 
-    def post(self, request, fk):
+    def post(self, request):
         serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

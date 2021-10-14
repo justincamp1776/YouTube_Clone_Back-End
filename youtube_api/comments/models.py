@@ -9,5 +9,5 @@ class Comment(models.Model):
     videoId = models.CharField(max_length=50, null=True)
 
 class Reply (models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    comment = models.ForeignKey('Comment', on_delete=models.CASCADE)
     text = models.CharField(max_length=500) 
