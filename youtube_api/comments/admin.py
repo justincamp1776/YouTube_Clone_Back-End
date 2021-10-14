@@ -4,5 +4,4 @@ from .models import Reply
 
 admin.site.register(Comment)
 admin.site.register(Reply)
-
 # Register your models here.
