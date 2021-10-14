@@ -55,7 +55,7 @@ class CommentDetail(APIView):
 
 class ReplyDetail(APIView):
 
-    def post(self, request, fk):
+    def post(self, request):
         serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
