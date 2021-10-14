@@ -35,7 +35,6 @@ class CommentDetail(APIView):
             return Comment.objects.get(pk=pk)
         except Comment.DoesNotExist:
             raise Http404    
-
     def get(self, request, pk):
         comment = self.get_object(pk)
         serializer = CommentSerializer(comment)
@@ -49,10 +48,14 @@ class CommentDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self, request, pk):
+        comment = self.get_object(pk)
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ReplyDetail(APIView):
 
-    def post(self,request):
+    def post(self, request, fk):
         serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
