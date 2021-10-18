@@ -40,8 +40,12 @@ class CommentDetail(APIView):
         serializer = CommentSerializer(comment)
         return Response(serializer.data)
 
-    def patch(self, request, pk):
+    def patch(self, request, pk, string):
         comment = self.get_object(pk)
+        if string == "like":
+            comment.likes += 1
+        elif string == "dislike":
+            comment.dislikes += 1
         serializer = CommentSerializer(comment, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
